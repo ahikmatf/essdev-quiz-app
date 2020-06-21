@@ -33,8 +33,10 @@ class Flow {
         return { [weak self] _ in
             guard let strongSelf = self else { return }
             let currentQuestionIndex = strongSelf.questions.firstIndex(of: question)!
-            let nextQuestion = strongSelf.questions[currentQuestionIndex+1]
-            strongSelf.router.routeTo(question: nextQuestion, answerCallback: strongSelf.routeNext(nextQuestion))
+            if currentQuestionIndex+1 < strongSelf.questions.count {
+                let nextQuestion = strongSelf.questions[currentQuestionIndex+1]
+                strongSelf.router.routeTo(question: nextQuestion, answerCallback: strongSelf.routeNext(nextQuestion))
+            }
         }
     }
 }
